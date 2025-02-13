@@ -1,0 +1,10 @@
+.long-txt .txt-showing{
+    display: flex;
+    flex-direction: row;
+    vertical-align:top;
+}
+
+.long-txt .txt-showing button{
+background-color: transparent ;
+color: rgb(7, 48, 10);
+}

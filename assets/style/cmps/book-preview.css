@@ -1,0 +1,19 @@
+.book-preview img {
+    max-width: 100px;
+}
+
+.onSale{
+    color: red;
+}
+
+.book-preview{
+    margin-top: "50px";
+    
+}
+
+.imgSale{
+    /* position: absolute; */
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+}

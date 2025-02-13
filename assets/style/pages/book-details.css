@@ -1,0 +1,12 @@
+
+.book-details .expensive{
+    color:red;
+    }
+    
+.book-details .cheap{
+        color: green;
+    }
+
+.book-details .onSale{
+    width: 50px;
+}

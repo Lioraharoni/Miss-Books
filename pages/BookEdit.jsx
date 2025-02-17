@@ -1,5 +1,6 @@
 
 import { bookService } from "../services/book.service.js"
+import { showErrorMsg, showSuccessMsg } from "../services/event-bus.service.js"
 
 const { useState, useEffect } = React
 const { useNavigate, useParams, Link } = ReactRouterDOM
@@ -37,9 +38,11 @@ export function BookEdit() {
         bookService.save(bookToEdit)
             .then(bookToSave => {
                 console.log(`Book (${bookToSave.id}) Saved!`)
+                showSuccessMsg(`Book ${bookToSave.id} successfully saved`)
             })
             .catch(err => {
                 console.log('Cannot save book:', err)
+                showErrorMsg(`Failed to save book ${bookToSave.id}`)
             })
             .finally(() => navigate('/book'))
     }
@@ -59,29 +62,37 @@ export function BookEdit() {
         setBookToEdit((prevBook) => ({ ...prevBook, [field]: value }))
     }
 
-    function handlePriceChange({ target }) {
+    function handlePriceChange(event) {
+
+        let target = event.target
         let { value, name: field } = target
 
-        console.log("value=", value, "field=", field, "target=", target);
+        console.log("event=", event, "value=", value, "field=", field, "target=", target);
         console.dir(target)
         let listPrice ={}
-        listPrice = bookToEdit.listPrice
-        listPrice[target.name] = value
+        // listPrice = bookToEdit.listPrice
+        // listPrice[target.name] = value
 
-        // switch (target.name) {
-        //     case 'amount':
-        //         listPrice = bookToEdit.listPrice
-        //         listPrice.amount = value
-        //         break;
-        //     case 'isOnSale':
-        //         listPrice = bookToEdit.listPrice
-        //         listPrice.isOnSale = value
-        //         break;
-        // }
+        switch (target.name) {
+            case 'amount':
+                listPrice = bookToEdit.listPrice
+                listPrice.amount = value
+                break;
+            case 'isOnSale':
+                listPrice = bookToEdit.listPrice
+                listPrice.isOnSale = target.checked
+                break;
+        }
         setBookToEdit((prevBook) => ({ ...prevBook, "listPrice" : listPrice }))
     }
 
-
+    // function getOnSaleValue()
+    // {
+    //     if(bookToEdit.listPrice.isOnSale)
+    //     {
+    //         return 
+    //     }
+    // }
 
     const loadingClass = isLoading ? 'loading' : ''
     return (
@@ -102,7 +113,7 @@ export function BookEdit() {
                 <input value={bookToEdit.listPrice.amount} onChange={handlePriceChange} type="number" name="amount" id="amount" /> 
 
                 <label htmlFor="isOnSale">On Sale:</label>
-                <input value={bookToEdit.listPrice.isOnSale} onChange={handlePriceChange} type="checkbox" name="isOnSale" id="isOnSale" /> 
+                <input checked={bookToEdit.listPrice.isOnSale} onChange={handlePriceChange} type="checkbox" name="isOnSale" id="isOnSale" /> 
 
                 <section className="btns flex">
                     <button>Save</button>

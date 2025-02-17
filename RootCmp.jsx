@@ -6,6 +6,7 @@ import { Team } from "./cmps/AboutCmps/Team.jsx"
 import { Vision } from "./cmps/AboutCmps/Vision.jsx"
 import { AppHeader } from "./cmps/AppHeader.jsx"
 import { NotFound } from "./cmps/NotFound.jsx"
+import { UserMsg } from "./cmps/UserMsg.jsx"
 import { AboutUs } from "./pages/AboutUs.jsx"
 import { BookDetails } from "./pages/BookDetails.jsx"
 import { BookEdit } from "./pages/BookEdit.jsx"
@@ -36,6 +37,7 @@ export function App() {
                         <Route path="*" element={<NotFound />} />
                     </Routes>
                 </main>
+                <UserMsg/>
             </section>
         </Router>
     )
